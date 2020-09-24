@@ -35,9 +35,6 @@ public class Analysis {
         String text1=replaceSpecialStr(txttest.txt2String(file1));
         String text2=replaceSpecialStr(txttest.txt2String(file2));
         
-        System.out.println(text1+"\n");
-        System.out.println(text2+"\n");
-       
         statistics(resultMap, IKUtils.divideText(text1),1);
         statistics(resultMap, IKUtils.divideText(text2),0);
         
