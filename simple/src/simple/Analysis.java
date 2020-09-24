@@ -15,11 +15,13 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import org.wltea.analyzer.core.IKSegmenter;
 import org.wltea.analyzer.core.Lexeme;
 
 public class Analysis {
     public static void main(String[] args) {
+    	long start=System.currentTimeMillis(); //获取开始时间
         Map<String,int[]> resultMap = new HashMap<>();
         List<String> filename=new ArrayList<String>();
        for(int i=0;i<args.length;i++) {
@@ -33,12 +35,12 @@ public class Analysis {
         String text1=replaceSpecialStr(txttest.txt2String(file1));
         String text2=replaceSpecialStr(txttest.txt2String(file2));
         
-        System.out.println(text1+"\n\n");
-        System.out.println(text2+"\n\n");
-        //ͳ��
+        System.out.println(text1+"\n");
+        System.out.println(text2+"\n");
+       
         statistics(resultMap, IKUtils.divideText(text1),1);
         statistics(resultMap, IKUtils.divideText(text2),0);
-        //������
+        
         final Calculation calculation = new Calculation();
         resultMap.forEach((k,v)->{
             int[] arr = resultMap.get(k);
@@ -50,9 +52,9 @@ public class Analysis {
         double a=Double.parseDouble(result);
        System.out.println("文本的相似度:" + a);
        writeToFile(filename.get(2),a);
-       
+       long end=System.currentTimeMillis(); 
+       System.out.println("程序运行时间： "+(end-start)+"ms"+"\n"); 
     }
-    //����
     public static String replaceSpecialStr(String str) {
         String repl = "";
         if (str!=null) {
@@ -88,13 +90,13 @@ public class Analysis {
         }
     }
     
-    //�жϲ�ͬ����
+    
     private static boolean direction(int direction){
         return direction == 1?true:false;
     }
-    //д������
+    
     public static void writeToFile(String pathname,double result ) {
-        try {//�����׽�
+        try {
             FileOutputStream fout=new FileOutputStream(pathname);
             DataOutputStream dout=new DataOutputStream(fout);
           
@@ -102,7 +104,6 @@ public class Analysis {
             
             line="文本的相似度: "+String.valueOf(result);
             
-            System.out.println("input:"+line);
             try {
                 File writeName = new File(pathname); // ���·�������û����Ҫ����һ���µ�output.txt�ļ�
                 writeName.createNewFile(); // �������ļ�,��ͬ�����ļ��Ļ�ֱ�Ӹ���
