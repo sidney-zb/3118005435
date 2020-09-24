@@ -27,7 +27,7 @@ public class Analysis {
        for(int i=0;i<args.length;i++) {
 			
 	        filename.add(args[i]);		
-		}      
+		}  //读取文件路径
         
         File file1= new File(filename.get(0)); 
         File file2=new File(filename.get(1));
@@ -55,7 +55,7 @@ public class Analysis {
        long end=System.currentTimeMillis(); 
        System.out.println("程序运行时间： "+(end-start)+"ms"+"\n"); 
     }
-    public static String replaceSpecialStr(String str) {
+    public static String replaceSpecialStr(String str) {//文本除杂，去除各种转义字符
         String repl = "";
         if (str!=null) {
             Pattern p = Pattern.compile("\\s*|\t|\r|\n");
@@ -65,7 +65,7 @@ public class Analysis {
         return repl;
     }
  
-    private static void statistics(Map<String,int[]> map,List<String> words ,int direction){
+    private static void statistics(Map<String,int[]> map,List<String> words ,int direction){//计算各词的词频
         if(null == words || words.size() == 0){
             return ;
         }
@@ -91,7 +91,7 @@ public class Analysis {
     }
     
     
-    private static boolean direction(int direction){
+    private static boolean direction(int direction){//判断是否是同一个文本
         return direction == 1?true:false;
     }
     
@@ -105,13 +105,13 @@ public class Analysis {
             line="文本的相似度: "+String.valueOf(result);
             
             try {
-                File writeName = new File(pathname); // ���·�������û����Ҫ����һ���µ�output.txt�ļ�
-                writeName.createNewFile(); // �������ļ�,��ͬ�����ļ��Ļ�ֱ�Ӹ���
+                File writeName = new File(pathname); 
+                writeName.createNewFile();
                 try (FileWriter writer = new FileWriter(writeName);
                      BufferedWriter out = new BufferedWriter(writer)
                 ) {
                     out.write(line);
-                    out.flush(); // �ѻ���������ѹ���ļ�
+                    out.flush(); 
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -149,7 +149,7 @@ public class Analysis {
 }
 
 
- class Calculation{
+ class Calculation{//计算向量的余弦值
 	 
     private  double elementA=0;
     private  double elementB=0;
@@ -173,13 +173,13 @@ public class Analysis {
         return numerator / Math.sqrt(elementA * elementB);
     }
  }
- class txttest {
+ class txttest {//逐行读取文本内容，返回string类
      public static String txt2String(File file){
          String result = "";
          try{
-             BufferedReader br = new BufferedReader(new FileReader(file));//����һ��BufferedReader������ȡ�ļ�
+             BufferedReader br = new BufferedReader(new FileReader(file));
              String s = null;
-             while((s = br.readLine())!=null){//ʹ��readLine������һ�ζ�һ��
+             while((s = br.readLine())!=null){
                  result = result + "\n" +s;
              }
              br.close();    
